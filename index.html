@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Камера — настройки видео</title>
+<style>
+  :root{color-scheme:dark;--bg:#0c1017;--panel:#151c27;--panel2:#1b2533;--line:#293547;--muted:#95a3b8;--text:#f3f6fb;--accent:#8b7bff;--green:#53d6a1;--red:#ff7585}
+  *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#1b2040 0,transparent 43%),var(--bg);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);min-height:100vh;padding:34px 20px}
+  .wrap{max-width:1120px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;margin:0 0 26px;gap:16px}.brand{display:flex;align-items:center;gap:13px}.icon{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#9b8bff,#6054d9);display:grid;place-items:center;box-shadow:0 8px 28px #7665ff42}.icon svg{width:24px}.eyebrow{color:#a89dff;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.top h1{font-size:25px;letter-spacing:-.035em;margin:1px 0 0}.pill{border:1px solid var(--line);background:#131a24;padding:8px 12px;border-radius:99px;color:var(--muted);font-size:12px;white-space:nowrap}.pill i{display:inline-block;width:7px;height:7px;background:#657084;border-radius:50%;margin-right:7px}.pill.live{color:#a4f1d3;border-color:#285543}.pill.live i{background:var(--green);box-shadow:0 0 10px var(--green)}
+  .layout{display:grid;grid-template-columns:340px 1fr;gap:18px;align-items:start}.card{background:linear-gradient(150deg,#171f2b,#121821);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 60px #0002}.controls{padding:23px}.section-title{font-size:15px;font-weight:750;margin:0 0 20px}.field{margin-bottom:18px}.field label{display:flex;justify-content:space-between;color:#c7d0de;font-size:12px;font-weight:650;margin:0 0 8px}.field label span{color:var(--muted);font-weight:450}.select-wrap{position:relative}.select-wrap:after{content:"⌄";position:absolute;right:13px;top:9px;color:#9caac0;pointer-events:none}.field select{appearance:none;width:100%;height:43px;border:1px solid #344257;border-radius:10px;background:#101620;color:#f2f5fa;padding:0 38px 0 12px;font:inherit;font-size:13px;outline:none}.field select:focus{border-color:#8b7bff;box-shadow:0 0 0 3px #8b7bff28}.hint{font-size:11px;color:#8290a4;margin:7px 1px 0;line-height:1.5}.divider{height:1px;background:var(--line);margin:21px 0}.btn{border:0;border-radius:10px;padding:12px 15px;font:700 13px inherit;cursor:pointer;transition:.18s}.primary{width:100%;background:linear-gradient(135deg,#9485ff,#7163ed);color:white;box-shadow:0 8px 22px #7665ff30}.primary:hover{filter:brightness(1.09);transform:translateY(-1px)}.secondary{background:#202a39;border:1px solid #334257;color:#dbe4f2}.secondary:hover{background:#273449}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.note{display:flex;gap:9px;color:#8593a7;font-size:11px;line-height:1.55;margin:15px 0 0}.note svg{width:16px;min-width:16px;margin-top:1px;color:#9486ff}
+  .preview-card{overflow:hidden}.preview-head{padding:17px 19px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.preview-head strong{font-size:13px}.resolution-tag{font:11px ui-monospace,SFMono-Regular,Consolas,monospace;color:#bdc9d9;background:#202a39;border:1px solid #334257;border-radius:7px;padding:5px 8px}.screen{position:relative;aspect-ratio:16/9;max-height:590px;background:linear-gradient(140deg,#121923,#0e131b);display:grid;place-items:center;overflow:hidden}.screen video{display:none;width:100%;height:100%;object-fit:contain;background:#070a0f}.placeholder{text-align:center;color:#8694a9;padding:24px}.placeholder .cam{width:58px;height:58px;border-radius:18px;background:#202a39;border:1px solid #354257;display:grid;place-items:center;margin:0 auto 15px;color:#9c8fff}.placeholder svg{width:28px}.placeholder strong{display:block;color:#cbd4e2;font-size:14px;margin-bottom:4px}.placeholder span{font-size:12px}.overlay{position:absolute;left:13px;top:13px;display:none;align-items:center;gap:7px;background:#0a0d12bb;border:1px solid #ffffff21;padding:6px 9px;border-radius:7px;font:11px ui-monospace,monospace;color:#dce6f2;backdrop-filter:blur(8px)}.overlay i{width:7px;height:7px;background:var(--green);border-radius:50%}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.metric{background:#141b25;padding:15px 18px}.metric small{display:block;color:#8795a9;font-size:10px;text-transform:uppercase;letter-spacing:.09em;font-weight:750;margin-bottom:5px}.metric strong{font-size:18px;letter-spacing:-.025em}.metric strong em{font-style:normal;font-size:11px;font-weight:500;color:#98a6b9;margin-left:3px}.status{padding:13px 18px;color:#8795a9;font-size:11px;border-top:1px solid var(--line);min-height:43px}.status.error{color:#ff9aa6}.footer{color:#657286;font-size:11px;margin:17px 2px}.footer b{color:#9ba8ba;font-weight:600}
+  @media(max-width:780px){body{padding:22px 14px}.layout{grid-template-columns:1fr}.controls{order:1}.preview-card{order:0}.top{align-items:flex-start}.top h1{font-size:21px}.pill{font-size:10px}.metrics{grid-template-columns:1fr 1fr 1fr}.metric{padding:12px}.metric strong{font-size:16px}}
+  @media(max-width:430px){.pill{display:none}.metric{padding:10px 8px}.metric strong{font-size:14px}.metric small{font-size:9px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <div class="brand"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3z"/></svg></div><div><div class="eyebrow">Инструмент камеры</div><h1>Настройки видеопотока</h1></div></div>
+    <div class="pill" id="connection"><i></i><span>Камера не подключена</span></div>
+  </header>
+  <div class="layout">
+    <section class="card controls">
+      <h2 class="section-title">Параметры захвата</h2>
+      <div class="field"><label for="camera">Веб-камера</label><div class="select-wrap"><select id="camera"><option value="">Камера по умолчанию</option></select></div></div>
+      <div class="field"><label for="resolution">Разрешение</label><div class="select-wrap"><select id="resolution"><option value="640x480">640 × 480 · SD</option><option value="1280x720" selected>1280 × 720 · HD</option><option value="1920x1080">1920 × 1080 · Full HD</option><option value="2560x1440">2560 × 1440 · QHD</option><option value="3840x2160">3840 × 2160 · 4K</option></select></div><p class="hint">Фактическое разрешение зависит от возможностей камеры.</p></div>
+      <div class="field"><label for="fps">Частота кадров <span>кадров в секунду</span></label><div class="select-wrap"><select id="fps"><option value="15">15 кадров/с</option><option value="24">24 кадра/с</option><option value="30" selected>30 кадров/с</option><option value="60">60 кадров/с</option></select></div><p class="hint">Камера может выдавать меньше выбранного значения.</p></div>
+      <div class="divider"></div>
+      <button id="start" class="btn primary">Включить камеру</button>
+      <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg><span>Браузер запросит разрешение на использование камеры. Видео обрабатывается только на вашем устройстве.</span></div>
+    </section>
+    <section class="card preview-card">
+      <div class="preview-head"><strong>Предпросмотр</strong><span id="resolutionTag" class="resolution-tag">ОЖИДАНИЕ</span></div>
+      <div class="screen"><div class="placeholder" id="placeholder"><div class="cam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3z"/></svg></div><strong>Здесь появится изображение</strong><span>Выберите параметры и включите камеру</span></div><video id="video" autoplay muted playsinline></video><div class="overlay" id="liveBadge"><i></i><span>LIVE</span></div></div>
+      <div class="metrics"><div class="metric"><small>Разрешение</small><strong id="actualResolution">—</strong></div><div class="metric"><small>Скорость потока</small><strong id="actualFps">—<em>кадр/с</em></strong></div><div class="metric"><small>Кадров с запуска</small><strong id="frameCount">0</strong></div></div>
+      <div class="status" id="status">Камера выключена. Настройте параметры слева.</div>
+    </section>
+  </div>
+  <div class="footer"><b>Подсказка:</b> для доступа к веб-камере откройте страницу по HTTPS или через localhost.</div>
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const video = $('video'), button = $('start');
+  let stream = null, frames = 0, lastFpsTime = 0, lastFpsFrames = 0, fpsTimer = 0, frameCallback = 0;
+  const stopTracks = s => s && s.getTracks().forEach(t => t.stop());
+  function setStatus(message, error=false){ $('status').textContent=message; $('status').classList.toggle('error',error); }
+  async function fillCameras(){
+    if (!navigator.mediaDevices?.enumerateDevices) return;
+    try {
+      const devices=await navigator.mediaDevices.enumerateDevices();
+      const cams=devices.filter(d=>d.kind==='videoinput'), select=$('camera'), selected=select.value;
+      select.innerHTML='<option value="">Камера по умолчанию</option>';
+      cams.forEach((d,i)=>{const o=document.createElement('option');o.value=d.deviceId;o.textContent=d.label||`Камера ${i+1}`;select.appendChild(o)});
+      if(selected && [...select.options].some(o=>o.value===selected)) select.value=selected;
+    } catch(_) {}
+  }
+  function countFrames(){
+    if(!stream) return;
+    if('requestVideoFrameCallback' in video){
+      const tick=()=>{if(!stream)return;frames++;$('frameCount').textContent=frames.toLocaleString('ru-RU');frameCallback=video.requestVideoFrameCallback(tick)};
+      frameCallback=video.requestVideoFrameCallback(tick);
+    } else {
+      const track=stream.getVideoTracks()[0], rate=track?.getSettings().frameRate||30;
+      frameCallback=window.setInterval(()=>{if(!stream)return;frames++;$('frameCount').textContent=frames.toLocaleString('ru-RU')},1000/rate);
+    }
+    lastFpsTime=performance.now();lastFpsFrames=0;
+    fpsTimer=window.setInterval(()=>{
+      const now=performance.now(), elapsed=(now-lastFpsTime)/1000, current=frames;
+      if(elapsed>0){const measured=(current-lastFpsFrames)/elapsed;$('actualFps').innerHTML=`${measured.toFixed(1)}<em>кадр/с</em>`;}
+      lastFpsTime=now;lastFpsFrames=current;
+    },1000);
+  }
+  function cleanup(){
+    if(frameCallback){if('cancelVideoFrameCallback' in video)video.cancelVideoFrameCallback(frameCallback);else clearInterval(frameCallback)}
+    clearInterval(fpsTimer);frameCallback=0;fpsTimer=0;stopTracks(stream);stream=null;
+  }
+  async function startCamera(){
+    if(!navigator.mediaDevices?.getUserMedia){setStatus('Браузер не поддерживает доступ к камере. Откройте страницу по HTTPS.',true);return;}
+    button.disabled=true;button.textContent='Подключаем…';setStatus('Запрашиваем доступ к камере…');
+    cleanup();
+    const [width,height]=$('resolution').value.split('x').map(Number), fps=Number($('fps').value), deviceId=$('camera').value;
+    const videoConstraints={width:{ideal:width},height:{ideal:height},frameRate:{ideal:fps,max:fps}};
+    if(deviceId) videoConstraints.deviceId={exact:deviceId};
+    try{
+      stream=await navigator.mediaDevices.getUserMedia({audio:false,video:videoConstraints});
+      video.srcObject=stream;await video.play();
+      const settings=stream.getVideoTracks()[0].getSettings();
+      $('placeholder').style.display='none';video.style.display='block';$('liveBadge').style.display='flex';
+      $('connection').classList.add('live');$('connection').querySelector('span').textContent='Камера подключена';
+      const actualW=settings.width||width, actualH=settings.height||height;
+      $('actualResolution').textContent=`${actualW} × ${actualH}`;$('resolutionTag').textContent=`${actualW} × ${actualH}`;
+      $('actualFps').innerHTML=`${(settings.frameRate||fps).toFixed(0)}<em>кадр/с</em>`;
+      frames=0;$('frameCount').textContent='0';countFrames();
+      setStatus(`Поток запущен. Запрошено: ${width} × ${height} при ${fps} кадрах/с.`);
+      await fillCameras();
+    }catch(err){
+      cleanup();
+      const messages={NotAllowedError:'Нет доступа к камере. Разрешите использование камеры в настройках браузера.',NotFoundError:'Веб-камера не найдена.',NotReadableError:'Камера занята другим приложением.',OverconstrainedError:'Камера не поддерживает выбранные параметры. Попробуйте меньшее разрешение или частоту кадров.'};
+      setStatus(messages[err.name]||`Не удалось запустить камеру: ${err.message||err.name}`,true);
+      $('connection').classList.remove('live');$('connection').querySelector('span').textContent='Камера не подключена';
+    }finally{button.disabled=false;button.textContent=stream?'Перезапустить с этими настройками':'Включить камеру';}
+  }
+  button.addEventListener('click',startCamera);
+  $('camera').addEventListener('focus',fillCameras);
+  if(navigator.mediaDevices?.addEventListener) navigator.mediaDevices.addEventListener('devicechange',fillCameras);
+  fillCameras();
+})();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
